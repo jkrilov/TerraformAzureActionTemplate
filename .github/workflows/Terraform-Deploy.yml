@@ -14,6 +14,7 @@ env:
   ARM_CLIENT_SECRET: "${{ secrets.AZURE_CLIENT_SECRET }}"
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+  workingDir: "./terraform"
 
 jobs:
   terraform-plan:
@@ -39,11 +40,13 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+      working-directory: ${{env.workingDir}}
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
     - name: Terraform Format
       run: terraform fmt -check
+      working-directory: ${{env.workingDir}}
 
     # Generates an execution plan for Terraform
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
@@ -60,6 +63,7 @@ jobs:
         else 
           exit 0
         fi
+      working-directory: ${{env.workingDir}}
         
     # Save plan to artifacts  
     - name: Publish Terraform Plan
@@ -67,6 +71,8 @@ jobs:
       with:
         name: tfplan
         path: tfplan
+        working-directory: ${{env.workingDir}}
+      
         
     # Create string output of Terraform Plan
     - name: Create String Output
@@ -84,6 +90,7 @@ jobs:
         echo '```' >> $GITHUB_OUTPUT
         echo "</details>" >> $GITHUB_OUTPUT
         echo "${delimiter}" >> $GITHUB_OUTPUT
+      working-directory: ${{env.workingDir}}
         
     # Publish Terraform Plan as task summary
     - name: Publish Terraform Plan to Task Summary
