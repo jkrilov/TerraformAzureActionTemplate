@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "state-and-backend"
     storage_account_name = "jkrilovtfstate"
     container_name       = "state"
-    key                  = "${projectName}.tfstate"
+    key                  = "${var.projectName}.tfstate"
   }
 }
 
