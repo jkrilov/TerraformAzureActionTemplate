@@ -55,12 +55,10 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
-      continue-on-error: true
       working-directory: ${{env.workingDir}}
 
     - name: Terraform Validate
       id: validate
-      continue-on-error: true
       run: terraform validate -no-color
 
     # Generates an execution plan for Terraform
@@ -68,13 +66,12 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -input=false -no-color     
-      continue-on-error: true
       working-directory: ${{env.workingDir}}
 
     - name: PR Comment
       id: comment
       uses: actions/github-script@v6
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' || failure() && github.event_name == 'pull_request'
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
@@ -100,7 +97,7 @@ jobs:
           \`\`\`
 
           </details>
-          
+
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
