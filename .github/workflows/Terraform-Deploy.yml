@@ -118,10 +118,10 @@ jobs:
             })
           }
             
-        # Save plan to artifacts  
-        - name: Publish Terraform Plan
-          uses: actions/upload-artifact@v3
-          with:
-            name: tfplan
-            path: ${{env.workingDir}}/tfplan
+      # Save plan to artifacts  
+      - name: Publish Terraform Plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: tfplan
+          path: ${{env.workingDir}}/tfplan
 
