@@ -21,7 +21,10 @@ jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions: 
+      issues: read
+      content: read
+      pull-requests: write
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
@@ -78,7 +81,7 @@ jobs:
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            issue_number: context.issue.number,
+            issue_number: context.payload.number,
           })
           const botComment = comments.find(comment => {
             return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
