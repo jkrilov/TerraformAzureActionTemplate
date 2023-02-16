@@ -21,10 +21,7 @@ jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      contents: read
-      pull-requests: write
+    permissions: write-all
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
@@ -68,7 +65,7 @@ jobs:
       continue-on-error: true
       working-directory: ${{env.workingDir}}
 
-    - name: add-plan-comment
+    - name: PR Comment
       id: comment
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request'
