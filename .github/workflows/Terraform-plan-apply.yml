@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: 
       issues: read
-      content: read
+      contents: read
       pull-requests: write
     env:
       #this is needed since we are running terraform with read-only permissions
