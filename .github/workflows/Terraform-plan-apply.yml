@@ -163,7 +163,7 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: tfplan
-        path: ${{env.workingDir}}/tfplan
+        path: ${{env.workingDir}}
 
     # Install the latest version of the Terraform CLI
     - name: Install Terraform
