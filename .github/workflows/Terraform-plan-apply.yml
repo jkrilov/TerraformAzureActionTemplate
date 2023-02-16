@@ -77,7 +77,6 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          echo "RUNTIME=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
           // 1. Retrieve existing bot comments for the PR
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
@@ -119,7 +118,7 @@ jobs:
 
           </details>
 
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`, Last Run: \`${{ env.RUNTIME }}\`*`;   
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;   
 
           // 3. If we have a comment, update it, otherwise create a new one
           if (botComment) {
