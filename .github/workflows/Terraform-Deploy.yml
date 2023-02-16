@@ -45,9 +45,7 @@ jobs:
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
     - name: Terraform Format
-      run: |
-        terraform fmt -check -diff
-        exit 0
+      run: terraform fmt -check -diff
       working-directory: ${{env.workingDir}}
 
     # Generates an execution plan for Terraform
