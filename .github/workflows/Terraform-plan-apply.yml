@@ -21,6 +21,10 @@ jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      contents: read
+      pull-requests: write
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
@@ -68,9 +72,6 @@ jobs:
       id: comment
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request'
-      permissions:
-        issues: read
-        pull-requests: write
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
