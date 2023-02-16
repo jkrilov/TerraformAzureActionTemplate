@@ -169,4 +169,4 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Apply
       id: apply
-      run: terraform apply tfplan
+      run: terraform apply tfplan -auto-approve -input=false
