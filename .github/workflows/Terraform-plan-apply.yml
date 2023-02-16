@@ -48,16 +48,19 @@ jobs:
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check -diff
+      continue-on-error: true
       working-directory: ${{env.workingDir}}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       id: init
       run: terraform init
+      continue-on-error: true
       working-directory: ${{env.workingDir}}
 
     - name: Terraform Validate
       id: validate
+      continue-on-error: true
       run: terraform validate -no-color
 
     # Generates an execution plan for Terraform
@@ -88,7 +91,19 @@ jobs:
           })
 
           // 2. Prepare format of the comment
-          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          const output = `
+          if (steps.fmt.outcome == "success") {
+            #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          } else {
+            #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            <details><summary>Format Output</summary>
+
+            \`\`\`\n
+            ${{ steps.fmt.outputs.stdout }}
+            \`\`\`
+
+            </details>
+          }
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
