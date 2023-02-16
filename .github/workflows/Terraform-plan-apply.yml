@@ -92,18 +92,14 @@ jobs:
 
           // 2. Prepare format of the comment
           const output = `
-          if (steps.fmt.outcome == "success") {
-            #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-          } else {
-            #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            <details><summary>Format Output</summary>
+          #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          <details><summary>Format Output</summary>
 
-            \`\`\`\n
-            ${{ steps.fmt.outputs.stdout }}
-            \`\`\`
+          \`\`\`\n
+          ${{ steps.fmt.outputs.stdout }}
+          \`\`\`
 
-            </details>
-          }
+          </details>
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
