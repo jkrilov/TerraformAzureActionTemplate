@@ -195,12 +195,18 @@ jobs:
     name: 'Terraform Apply'
     needs: [ terraform-plan, tflint ]
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == '2' }}
-    env:
-      #this is needed since we are running terraform with read-only permissions
-      ARM_SKIP_PROVIDER_REGISTRATION: true
+    if: github.ref == 'refs/heads/main' && ${{ needs.terraform-plan.outputs.tfplanExitCode }} == 2
 
     steps:
+
+    - name: Test output
+      id: test
+      run: |
+        echo "plan exit code"
+        echo ${{ needs.terraform-plan.outputs.tfplanExitCode }}
+        echo "branch"
+        echo ${{ github.ref }}
+
     - uses: actions/checkout@v3
 
     - uses: actions/download-artifact@v3
@@ -221,7 +227,7 @@ jobs:
       run: terraform init
       working-directory: ${{env.workingDir}}
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # Apply the Terraform configuration
     - name: Terraform Apply
       id: apply
       run: terraform apply tfplan
