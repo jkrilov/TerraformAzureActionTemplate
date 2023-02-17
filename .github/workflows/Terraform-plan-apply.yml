@@ -196,7 +196,6 @@ jobs:
     needs: [ terraform-plan, tflint ]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && ${{ needs.terraform-plan.outputs.tfplanExitCode }} == 2
-
     steps:
 
     - name: Test output
