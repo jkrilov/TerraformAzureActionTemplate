@@ -16,10 +16,39 @@ env:
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   workingDir: "./terraform"
   tfVer: 1.3.9
+  tfLintVer: "v0.44.1"
 
 jobs:
+  tflint:
+    name: "TFLint"
+    runs-on: ubuntu-latest
+    outputs:
+      tfLintExitCode: ${{ steps.tflint.outputs.exitcode }}
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout source code
+
+    - uses: terraform-linters/setup-tflint@v3
+      name: Setup TFLint
+      with:
+        tflint_version: ${{env.tfLintVer}}
+
+    - name: Show version
+      run: tflint --version
+
+    - name: Init TFLint
+      run: tflint --init
+      working-directory: ${{env.workingDir}}
+
+    - name: Run TFLint
+      id: tflint
+      run: tflint -f compact
+      working-directory: ${{env.workingDir}}
+
   terraform-plan:
     name: 'Terraform Plan'
+    needs: tflint
     runs-on: ubuntu-latest
     permissions: 
       issues: read
