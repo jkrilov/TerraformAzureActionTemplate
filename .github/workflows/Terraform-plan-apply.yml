@@ -55,6 +55,8 @@ jobs:
         github_token: ${{ secrets.github_token }}
         working_directory: ${{env.workingDir}}
         tflint_rulesets: "azurerm"
+        tflint_init: true
+
 
   terraform-plan:
     name: 'Terraform Plan'
