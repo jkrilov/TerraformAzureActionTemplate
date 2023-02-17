@@ -42,13 +42,13 @@ jobs:
       run: terraform init
       working-directory: ${{env.workingDir}}
 
-    - name: Terraform Plan Destory
+    - name: Terraform Plan Destroy
       id: plan
       run: terraform plan -destroy
       working-directory: ${{env.workingDir}}
 
 
-    - name: Terraform Destory
+    - name: Terraform Destroy
       id: destory
-      run: terraform destory
+      run: terraform destroy
       working-directory: ${{env.workingDir}}
