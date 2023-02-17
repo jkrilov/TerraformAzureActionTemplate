@@ -57,6 +57,7 @@ jobs:
         #tflint_rulesets: "azurerm"
         tflint_init: true
         filter_mode: "nofilter"
+        reporter: github-pr-review
 
 
   terraform-plan:
