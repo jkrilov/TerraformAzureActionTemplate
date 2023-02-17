@@ -50,5 +50,5 @@ jobs:
 
     - name: Terraform Destroy
       id: destory
-      run: terraform destroy
+      run: terraform destroy -auto-approve
       working-directory: ${{env.workingDir}}
