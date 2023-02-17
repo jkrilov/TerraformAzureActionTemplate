@@ -72,6 +72,7 @@ jobs:
       ARM_SKIP_PROVIDER_REGISTRATION: true
     outputs:
       tfplanExitCode: ${{ steps.plan.outputs.exitcode }}
+      tfplanOutcome: ${{ steps.plan.outputs.outcome }}
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -194,7 +195,7 @@ jobs:
     name: 'Terraform Apply'
     needs: [ terraform-plan, tflint ]
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == 2 }}
+    if: ${{ github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == '2' }}
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true
