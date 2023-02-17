@@ -1,5 +1,8 @@
 name: 'Terraform Destroy'
 
+on:
+  workflow_dispatch:
+
 #These environment variables are used by the terraform azure provider
 env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
