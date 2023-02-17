@@ -58,6 +58,7 @@ jobs:
         tflint_init: true
         filter_mode: "nofilter"
         reporter: github-pr-review
+        level: warning
 
 
   terraform-plan:
