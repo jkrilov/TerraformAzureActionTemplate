@@ -48,6 +48,12 @@ jobs:
       run: tflint -f compact
       working-directory: ${{env.workingDir}}
 
+    - name: TFLint PR Comments
+      id: tflintpr
+      uses: reviewdog/action-tflint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+
   terraform-plan:
     name: 'Terraform Plan'
     needs: tflint
