@@ -29,19 +29,19 @@ jobs:
     - uses: actions/checkout@v3
       name: Checkout source code
 
-    # - uses: terraform-linters/setup-tflint@v3
-    #   name: Setup TFLint
-    #   with:
-    #     tflint_version: ${{env.tfLintVer}}
+    - uses: terraform-linters/setup-tflint@v3
+      name: Setup TFLint
+      with:
+        tflint_version: ${{env.tfLintVer}}
 
-    # - name: Init TFLint
-    #   run: |
-    #     tflint --init
-    #   working-directory: ${{env.workingDir}}
+    - name: Init TFLint
+      run: |
+        tflint --init
+      working-directory: ${{env.workingDir}}
 
-    # - name: Show version
-    #   run: tflint --version
-    #   working-directory: ${{env.workingDir}}
+    - name: Show version
+      run: tflint --version
+      working-directory: ${{env.workingDir}}
 
     # - name: Run TFLint
     #   id: tflint
@@ -54,7 +54,7 @@ jobs:
       with:
         github_token: ${{ secrets.github_token }}
         working_directory: ${{env.workingDir}}
-        tflint_rulesets: "azurerm"
+        tflint_init: true
 
   terraform-plan:
     name: 'Terraform Plan'
