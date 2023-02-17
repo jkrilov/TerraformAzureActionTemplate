@@ -16,10 +16,52 @@ env:
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   workingDir: "./terraform"
   tfVer: 1.3.9
+  tfLintVer: "v0.44.1"
 
 jobs:
+  tflint:
+    name: "TFLint"
+    runs-on: ubuntu-latest
+    outputs:
+      tfLintExitCode: ${{ steps.tflint.outputs.exitcode }}
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout source code
+
+    - uses: terraform-linters/setup-tflint@v3
+      name: Setup TFLint
+      with:
+        tflint_version: ${{env.tfLintVer}}
+
+    - name: Init TFLint
+      run: |
+        tflint --init
+      working-directory: ${{env.workingDir}}
+
+    - name: Show version
+      run: tflint --version
+      working-directory: ${{env.workingDir}}
+
+    # - name: Run TFLint
+    #   id: tflint
+    #   run: tflint -f compact
+    #   working-directory: ${{env.workingDir}}
+
+    - name: TFLint PR Comments
+      id: tflintpr
+      uses: reviewdog/action-tflint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        working_directory: ${{env.workingDir}}
+        #tflint_rulesets: "azurerm"
+        tflint_init: true
+        filter_mode: "nofilter"
+        # reporter: github-pr-review
+
   terraform-plan:
     name: 'Terraform Plan'
+    needs: tflint
     runs-on: ubuntu-latest
     permissions: 
       issues: read
@@ -150,9 +192,9 @@ jobs:
 
   terraform-apply:
     name: 'Terraform Apply'
-    needs: terraform-plan
+    needs: [ terraform-plan, tflint ]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && ${{needs.terraform-plan.outputs.tfplanExitCode}} == 2
+    if: ${{ github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == 2 }}
     env:
       #this is needed since we are running terraform with read-only permissions
       ARM_SKIP_PROVIDER_REGISTRATION: true

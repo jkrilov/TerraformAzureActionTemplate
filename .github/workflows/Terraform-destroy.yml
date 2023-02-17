@@ -13,8 +13,8 @@ env:
   tfVer: 1.3.9
 
 jobs:
-  terraform-plan:
-    name: 'Terraform Plan'
+  terraform-destroy:
+    name: 'Terraform Destroy'
     runs-on: ubuntu-latest
     permissions: 
       issues: read
@@ -36,13 +36,19 @@ jobs:
         terraform_wrapper: true
         terraform_version: ${{env.tfVer}}
 
-    - name: Terraform Plan Destory
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      run: terraform init
+      working-directory: ${{env.workingDir}}
+
+    - name: Terraform Plan Destroy
       id: plan
-      run: terraform plan -destory
+      run: terraform plan -destroy
       working-directory: ${{env.workingDir}}
 
 
-    - name: Terraform Destory
+    - name: Terraform Destroy
       id: destory
-      run: terraform destory
+      run: terraform destroy -auto-approve
       working-directory: ${{env.workingDir}}
