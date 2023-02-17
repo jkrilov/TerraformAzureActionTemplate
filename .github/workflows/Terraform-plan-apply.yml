@@ -198,13 +198,13 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == 2 }}
     steps:
 
-    - name: Test output
-      id: test
-      run: |
-        echo "plan exit code"
-        echo ${{ needs.terraform-plan.outputs.tfplanExitCode }}
-        echo "branch"
-        echo ${{ github.ref }}
+    # - name: Test output
+    #   id: test
+    #   run: |
+    #     echo "plan exit code"
+    #     echo ${{ needs.terraform-plan.outputs.tfplanExitCode }}
+    #     echo "branch"
+    #     echo ${{ github.ref }}
 
     - uses: actions/checkout@v3
 
