@@ -34,11 +34,12 @@ jobs:
       with:
         tflint_version: ${{env.tfLintVer}}
 
-    - name: Show version
-      run: tflint --version
-
     - name: Init TFLint
       run: tflint --init
+      working-directory: ${{env.workingDir}}
+
+    - name: Show version
+      run: tflint --version
       working-directory: ${{env.workingDir}}
 
     - name: Run TFLint
