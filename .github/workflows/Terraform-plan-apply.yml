@@ -35,7 +35,9 @@ jobs:
         tflint_version: ${{env.tfLintVer}}
 
     - name: Init TFLint
-      run: tflint --init
+      run: |
+        tflint --config  
+        tflint --init
       working-directory: ${{env.workingDir}}
 
     - name: Show version
