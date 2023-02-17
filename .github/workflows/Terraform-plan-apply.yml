@@ -36,7 +36,6 @@ jobs:
 
     - name: Init TFLint
       run: |
-        tflint --config  "./.tflint.hcl"
         tflint --init
       working-directory: ${{env.workingDir}}
 
