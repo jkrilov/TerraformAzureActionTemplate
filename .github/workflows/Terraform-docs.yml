@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   docs:
+    name: "Run Terraform Docs"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -23,6 +24,6 @@ jobs:
       uses: terraform-docs/gh-actions@main
       with:
         working-dir: ./terraform
-        output-file: README.md
+        output-file: ./README.md
         output-method: inject
         git-push: "true"
