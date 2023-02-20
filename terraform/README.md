@@ -1,6 +1,6 @@
 # Terraform Docs
 
-We're using a github action to automatically run Terraform Docs each time a pull request is created.  This will keep our Terraform documentation up-to-date as well build out our environemnt(s).
+We're using a github action to automatically run Terraform Docs each time a pull request is created.  This will keep our Terraform documentation up-to-date as we build out our environemnt(s).
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
