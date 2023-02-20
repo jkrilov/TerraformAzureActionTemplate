@@ -8,6 +8,9 @@ on:
     - 'terraform/**'
     - '.github/workflows/Terraform-docs.yml'
 
+permissions:
+  contents: write
+
 jobs:
   docs:
     runs-on: ubuntu-latest
