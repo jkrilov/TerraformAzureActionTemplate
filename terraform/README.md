@@ -31,6 +31,6 @@ We're using a github action to automatically run Terraform Docs each time a pull
 
 # References
 
-[Terraform](https://developer.hashicorp.com/terraform/intro)
-[Terraform Docs](xhttps://terraform-docs.io)
-[Terraform Docs Github Action](https://github.com/terraform-docs/gh-actions)
+ * [Terraform](https://developer.hashicorp.com/terraform/intro)
+ * [Terraform Docs](https://terraform-docs.io)
+ * [Terraform Docs Github Action](https://github.com/terraform-docs/gh-actions)
