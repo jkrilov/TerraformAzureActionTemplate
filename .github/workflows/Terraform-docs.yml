@@ -8,8 +8,12 @@ on:
     - 'terraform/**'
     - '.github/workflows/Terraform-docs.yml'
 
+permissions:
+  contents: write
+
 jobs:
   docs:
+    name: "Run Terraform Docs"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -17,9 +21,8 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Render terraform docs inside the README.md and push changes back to PR branch
-      uses: terraform-docs/gh-actions@v1.0.0
+      uses: terraform-docs/gh-actions@main
       with:
         working-dir: ./terraform
-        output-file: ../docs/terraform.md
-        output-method: inject
+        config-file: ".terraform-docs.yml"
         git-push: "true"
