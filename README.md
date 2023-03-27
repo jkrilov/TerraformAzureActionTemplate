@@ -18,13 +18,13 @@ This workflow used a pre-built action to run [Terraform Docs](https://github.com
 
 This is the core worklfow which actually applies the IaC (Infrastructure as Code) using Terraform. This workflow performs a number of actions:
 
-* *TFLint* - This step runs a pre-built github action that runs TFLint and leaves appropriate comments directly on the code in the pull-request. [reviewdog/action-tflint@master](https://github.com/reviewdog/action-tflint)
-* *Terraform Format*
-* *Terraform Validate*
-* *Terraform Init*
-* *Terraform Plan*
-* *PR Comment Script* - This step runs a custom bash script based on a script [provided by Hashicorp](https://developer.hashicorp.com/terraform/tutorials/automation/github-actions).  The script takes the output from the previous steps including the full Terraform Plan output and submits them as a comment on the PR for easy review.
-* *Terraform Apply* - Once the PR has been merged into the main branch (or upon any commit directly to the main branch) the final action is to run Terraform Apply. This step will only run if the Terraform Apply step was successful. 
+* **TFLint** - This step runs a pre-built github action that runs TFLint and leaves appropriate comments directly on the code in the pull-request. [reviewdog/action-tflint@master](https://github.com/reviewdog/action-tflint)
+* **Terraform Format**
+* **Terraform Validate**
+* **Terraform Init**
+* **Terraform Plan**
+* **PR Comment Script** - This step runs a custom bash script based on a script [provided by Hashicorp](https://developer.hashicorp.com/terraform/tutorials/automation/github-actions).  The script takes the output from the previous steps including the full Terraform Plan output and submits them as a comment on the PR for easy review.
+* **Terraform Apply** - Once the PR has been merged into the main branch (or upon any commit directly to the main branch) the final action is to run Terraform Apply. This step will only run if the Terraform Apply step was successful. 
 
 ## Terraform Docs
 
