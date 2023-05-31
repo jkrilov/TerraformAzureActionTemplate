@@ -37,7 +37,7 @@ This is the core worklfow which actually applies the IaC (Infrastructure as Code
 
 ### super-linter.yml
 
-This is a Linter created by GitHub which is capable of checking code in multiple languages.  More information and configuration options can be found [here](https://github.com/marketplace/actions/super-linter).
+This is a Linter created by GitHub which is capable of checking code in multiple languages.  This is helpful for generic templates that may be used with any language. More information and configuration options can be found [here](https://github.com/marketplace/actions/super-linter).
 
 ## Terraform Docs
 
